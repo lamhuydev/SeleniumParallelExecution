@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Bai25 Test ParallelExecution" data-provider-thread-count="2">
+    <!--  Listener ở File Suite có thể áp dụng cho nhiều Class  -->
+    <listeners>
+        <listener class-name="listener.TestListener"></listener>
+    </listeners>
+    <test name="Test ParallelExecution">
+        <classes>
+            <class name="Bai31_ITestListener.DemoTestListener"></class>
+        </classes>
+    </test>
+</suite>

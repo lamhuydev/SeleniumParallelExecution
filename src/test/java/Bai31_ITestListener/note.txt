@@ -1,0 +1,6 @@
+Để sử dụng TestListener ở cấp độ Class thì dùng @Listener ở đầu Class cần dùng
+
+Có thể sử dụng ở cấp độ Suite
+
+Có thể Khai báo TestListener ở cấp độ Class ở class cha, lúc đó các class con sẽ sử dụng được mà không cần
+khai báo @Listener

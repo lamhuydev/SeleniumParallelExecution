@@ -1,0 +1,25 @@
+Cú pháp sử dụng dataProvider (trong file DemoDataProvider)
+
+    // Cú pháp khai báo
+    @DataProvider(name = "data_provider_1")
+    public Object[][] dataProvider1(){
+        return new Object[][]{{"value1"}, {"value2"}};
+    }
+
+    // Cách sử dụng
+    @Test(dataProvider = "data_provider_1")
+    public void testDataProvider1(String param1, String param2){
+        System.out.println(param1 + " -- " + param2);
+    }
+
+Từng bộ data trong @DataProvider phải giống nhau về số lượng tham số và kiểu dữ liệu từng tham số
+
+Có thể chạy song song bộ data bằng parallel
+VD: @DataProvider(name = "data_provider_login_success", parallel = true)
+
+
+=========================================
+
+Data Driven Testing
+
+59

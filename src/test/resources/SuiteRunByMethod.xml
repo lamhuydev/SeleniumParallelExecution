@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="MySuite">
+    <test name="First Test">
+        <classes>
+            <class name="Bai9_TestNGFramewok.DemoTestNG">
+                <methods>
+                    <!--       exclude là bỏ đi class không cần chạy (dùng để chạy nhiều class 1 lượt)             -->
+                    <!--                    <exclude name=""></exclude>-->
+                    <!--       include là thêm vào class cần chạy (dùng để chạy số ít class)                                                                                    -->
+                    <include name="createUser"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

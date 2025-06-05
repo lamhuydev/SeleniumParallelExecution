@@ -1,0 +1,10 @@
+THực hành trong file login test - file CaptureHelper
+
+Có thể chụp full màn hình với thư viện AShot
+
+
+
+record video sử dụng thư viiện Monte Screen Recorder (ưu tiên vì có trên maven) và ATU Test Recorder
+thư viện Monte Screen Recorder không hỗ trợ chạy song song =>> chỉ lưu được màn hình sau cùng
+Monte: https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder
+

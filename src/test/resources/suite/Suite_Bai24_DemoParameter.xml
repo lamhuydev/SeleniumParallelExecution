@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Bai24 Test Parameter">
+    
+    <parameter name="n1" value="10"></parameter>
+    <parameter name="n2" value="20"></parameter>
+    <parameter name="email" value="20"></parameter>
+    <parameter name="password" value="123456"></parameter>
+
+    <test name="Test Parameter 1">
+
+        <parameter name="email" value="admin1"></parameter>
+
+        <classes>
+            <class name="Bai24_Parameter_MultiBrowser.DemoParameter" />
+        </classes>
+    </test>
+
+    <test name="Test Parameter 2">
+
+        <parameter name="email" value="admin2"></parameter>
+
+        <classes>
+            <class name="Bai24_Parameter_MultiBrowser.DemoParameter" />
+        </classes>
+    </test>
+</suite>

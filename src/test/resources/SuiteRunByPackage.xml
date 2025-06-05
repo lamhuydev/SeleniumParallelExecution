@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="MySuite">
+    <test name="First Test">
+        <packages>
+            <!--    chỉ chạy được package trực tiếp chứa code        -->
+            <package name="Bai9_TestRunXMLByPackage.Package_1"></package>
+        </packages>
+    </test>
+</suite>
