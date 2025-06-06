@@ -8,6 +8,7 @@ import org.monte.screenrecorder.ScreenRecorder;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.io.FileHandler;
+import utils.LogUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -106,10 +107,10 @@ public class CaptureHelper extends ScreenRecorder {
                             + screenshotName
                             + "_" + dateFormat.format(new Date()) + ".png")
             );
-            System.out.println("Screenshot taken: " + screenshotName);
-            System.out.println("Screenshot taken current URL: " + DriverManager.getDriver().getCurrentUrl());
+            LogUtils.info("Screenshot taken: " + screenshotName);
+            LogUtils.info("Screenshot taken current URL: " + DriverManager.getDriver().getCurrentUrl());
         } catch (Exception e) {
-            System.out.println("Exception while taking screenshot: " + e.getMessage());
+            LogUtils.error("Exception while taking screenshot: " + e.getMessage());
         }
     }
 
@@ -137,10 +138,11 @@ public class CaptureHelper extends ScreenRecorder {
 
             // Lưu ảnh
             ImageIO.write(screenShot, "PNG", new File(filePath));
-            System.out.println("Full-screen screenshot saved: " + filePath);
+            LogUtils.info("Full-screen screenshot saved: " + filePath);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            LogUtils.error("Exception while taking full screenshot(have taskbar): " + e.getMessage());
+//            throw new RuntimeException(e);
         }
     }
 }

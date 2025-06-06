@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.*;
+import utils.LogUtils;
 
 import java.time.Duration;
 
@@ -39,14 +40,14 @@ public class BaseTest {
         switch (browser.trim().toLowerCase()){
             case "chrome":
                 driver = initChrome();
-                System.out.println("Run with Chrome browser");
+                LogUtils.info("Run with Chrome browser");
                 break;
             case "edge":
                 driver = initEdge();
-                System.out.println("Run with Edge browser");
+                LogUtils.info("Run with Edge browser");
                 break;
             default:
-                System.out.println("Run with Edge browser (default)");
+                LogUtils.info("Run with Edge browser (default)");
                 driver = initEdge();
                 break;
         }

@@ -1,0 +1,24 @@
+Extent Reports là 1 thư viện ngoài, cần phải add ExtentReports từ vào file pom.xml
+
+Cách sử dụng:
+Bước 1: import thư viện vào file pom.xml
+Bước 2: tạo package reports ở main, trong reports chứa 2 class
+Bước 3: add report vào TestListener
+
+    - ở hàm onTestStart, thêm việc //Bắt đầu ghi 1 TCs mới vào Extent Report
+        =>> ExtentTestManager.saveToReport(getTestName(result), getTestDescription(result));
+
+    - ở hàm onFinish, thêm việc //Kết thúc và thực thi Extents Report
+        =>> ExtentReportManager.getExtentReports().flush();
+
+    - ở hàm onTestSuccess, thêm việc //Extent Report
+        =>> ExtentTestManager.logMessage(Status.PASS, "✅ Test case " + result.getName() + " is passed.");
+
+    - ở hàm onTestFailure, thêm việc //Extent Report
+        =>> ExtentTestManager.logMessage(Status.FAIL, result.getThrowable().toString());
+        =>> ExtentTestManager.addScreenshot(result.getName());
+        =>> ExtentTestManager.logMessage(Status.FAIL, "❌ Test case " + result.getName() + " is failed.");
+
+    - ở hàm onTestSkipped, thêm việc //Extent Report
+        =>> ExtentTestManager.logMessage(Status.SKIP, "\uD83D\uDD25 Test case " + result.getName() + " is skipped.");
+        =>> ExtentTestManager.logMessage(Status.SKIP, result.getThrowable().toString());

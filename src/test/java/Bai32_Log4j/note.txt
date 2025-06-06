@@ -1,0 +1,14 @@
+Bước 1:
+cần add 2 thứ trên maven repon:
+    - Log4j-core
+    - Log4j-api
+
+Bước 2:
+    Cần tạo file "log4j2.properties" ở main. Tên là bắt buộc tuân theo
+
+    Chú ý phần property.filename trong log4j2.properties cho chính xác, đây là nơi lưu log
+
+    Có 2 dạng file hỗ trợ ghi log là file txt và file log
+
+Bước 3:
+    Tạo 1 class để thiết kế hàm cho việc ghi log ở main/java/utils(tiện lợi)

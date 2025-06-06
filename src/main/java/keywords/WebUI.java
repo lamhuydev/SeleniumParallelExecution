@@ -1,5 +1,6 @@
 package keywords;
 
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -7,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import drivers.DriverManager;
+import reports.ExtentTestManager;
+import utils.LogUtils;
 
 import java.time.Duration;
 import java.util.List;
@@ -30,8 +33,8 @@ public class WebUI {
     public static void openURL(String url) {
         DriverManager.getDriver().get(url);
         sleep(STEP_TIME);
-        logConsole("\uD83C\uDF10 Open URL: " + url);
-
+        LogUtils.info("\uD83C\uDF10 Open URL: " + url);
+        ExtentTestManager.logMessage(Status.INFO, "\uD83C\uDF10 Open URL: " + url);
 
     }
 
@@ -44,7 +47,8 @@ public class WebUI {
         waitForElementVisible(by);
         sleep(STEP_TIME);
         getWebElement(by).sendKeys(value);
-        logConsole("Set text [" + value + "] on element: " + by);
+        LogUtils.info("Set text [" + value + "] on element: " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Set text [" + value + "] on element: " + by);
     }
 
 
@@ -52,14 +56,16 @@ public class WebUI {
         waitForElementClickable(by);
         sleep(STEP_TIME);
         getWebElement(by).click();
-        logConsole("Click on element " + by);
+        LogUtils.info("Click on element " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Click on element " + by);
     }
 
     public static void clickElement(By by, int timeout) {
         waitForElementClickable(by, timeout);
         sleep(STEP_TIME);
         getWebElement(by).click();
-        logConsole("Click on element " + by);
+        LogUtils.info("Click on element " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Click on element " + by);
     }
 
 
@@ -67,32 +73,42 @@ public class WebUI {
         waitForElementVisible(by);
         sleep(STEP_TIME);
         getWebElement(by).clear();
-        logConsole("Clear text on element " + by);
+        LogUtils.info("Clear text on element " + by);
+        ExtentTestManager.logMessage(Status.PASS, "Clear text on element " + by);
     }
 
 
     public static String getText(By by) {
         waitForElementVisible(by);
         String text = getWebElement(by).getText();
-        logConsole("Get text of element: " + by + " || ==> Text Return: " + text);
+        LogUtils.info("Get text of element: " + by + " || ==> Text Return: " + text);
+        ExtentTestManager.logMessage(Status.PASS, "Get text of element: " + by + " || ==> Text Return: " + text);
         return text; //Trả về một giá trị kiểu String
     }
 
 
     public static String getElementAttribute(By by, String attributeName) {
         waitForElementVisible(by);
-        System.out.println("Get attribute of element " + by);
+        LogUtils.info("Get attribute of element " + by);
+        ExtentTestManager.logMessage(Status.INFO, "Get attribute of element " + by);
+
         String value = getWebElement(by).getAttribute(attributeName);
-        System.out.println("==> Attribute value: " + value);
+        LogUtils.info("==> Attribute value: " + value);
+        ExtentTestManager.logMessage(Status.PASS, "==> Attribute value: " + value);
+
         return value;
     }
 
 
     public static String getElementCssValue(By by, String cssPropertyName) {
         waitForElementVisible(by);
-        System.out.println("Get CSS value " + cssPropertyName + " of element " + by);
+        LogUtils.info("Get CSS value " + cssPropertyName + " of element " + by);
+        ExtentTestManager.logMessage(Status.INFO, "Get CSS value " + cssPropertyName + " of element " + by);
+
         String value = getWebElement(by).getCssValue(cssPropertyName);
-        System.out.println("==> CSS value: " + value);
+        LogUtils.info("==> CSS value: " + value);
+        ExtentTestManager.logMessage(Status.INFO, "==> CSS value: " + value);
+
         return value;
     }
 
@@ -131,7 +147,9 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.elementToBeClickable(getWebElement(by)));
         } catch (Throwable error) {
-            logConsole("Timeout waiting for the element ready to click. " + by.toString());
+            LogUtils.error("Timeout waiting for the element ready to click. " + by.toString());
+            ExtentTestManager.logMessage(Status.FAIL, "Timeout waiting for the element ready to click. " + by.toString());
+
             Assert.fail("Timeout waiting for the element ready to click. " + by.toString());
         }
     }
@@ -141,7 +159,9 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
             wait.until(ExpectedConditions.elementToBeClickable(getWebElement(by)));
         } catch (Throwable error) {
-            logConsole("Timeout waiting for the element ready to click. " + by.toString());
+            LogUtils.error("Timeout waiting for the element ready to click. " + by.toString());
+            ExtentTestManager.logMessage(Status.FAIL, "Timeout waiting for the element ready to click. " + by.toString());
+
             Assert.fail("Timeout waiting for the element ready to click. " + by.toString());
         }
     }
@@ -152,7 +172,9 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Throwable error) {
-            logConsole("Timeout waiting for the element Visible. " + by.toString());
+            LogUtils.error("Timeout waiting for the element Visible. " + by.toString());
+            ExtentTestManager.logMessage(Status.FAIL, "Timeout waiting for the element Visible. " + by.toString());
+
             Assert.fail("Timeout waiting for the element Visible. " + by.toString());
         }
     }
@@ -163,7 +185,9 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Throwable error) {
-            logConsole("Timeout waiting for the element Visible. " + by.toString());
+            LogUtils.error("Timeout waiting for the element Visible. " + by.toString());
+            ExtentTestManager.logMessage(Status.FAIL ,"Timeout waiting for the element Visible. " + by.toString());
+
             Assert.fail("Timeout waiting for the element Visible. " + by.toString());
         }
     }
@@ -174,7 +198,9 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
         } catch (Throwable error) {
-            logConsole("Element not exist. " + by.toString());
+            LogUtils.error("Element not exist. " + by.toString());
+            ExtentTestManager.logMessage(Status.FAIL ,"Element not exist. " + by.toString());
+
             Assert.fail("Element not exist. " + by.toString());
         }
     }
@@ -184,7 +210,9 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
         } catch (Throwable error) {
-            logConsole("Element not exist. " + by.toString());
+            LogUtils.error("Element not exist. " + by.toString());
+            ExtentTestManager.logMessage(Status.FAIL ,"Element not exist. " + by.toString());
+
             Assert.fail("Element not exist. " + by.toString());
         }
     }
@@ -194,10 +222,12 @@ public class WebUI {
         List<WebElement> listElement = getWebElements(by);
 
         if (listElement.size() > 0) {
-            System.out.println("checkElementExist: " + true + " --- " + by);
+            LogUtils.info("checkElementExist: " + true + " --- " + by);
             return true;
         } else {
-            System.out.println("checkElementExist: " + false + " --- " + by);
+            LogUtils.error("checkElementExist: " + false + " --- " + by);
+            ExtentTestManager.logMessage(Status.FAIL ,"checkElementExist: " + false + " --- " + by);
+
             return false;
         }
     }
@@ -210,11 +240,16 @@ public class WebUI {
             try {
                 WebElement element = getWebElement(by);
                 if (element != null) {
-                    System.out.println("Tìm thấy phần tử ở lần thử thứ " + (retryCount + 1));
+                    LogUtils.info("Tìm thấy phần tử ở lần thử thứ " + (retryCount + 1));
+                    ExtentTestManager.logMessage(Status.INFO ,"Tìm thấy phần tử ở lần thử thứ " + (retryCount + 1));
+
                     return true; // Phần tử được tìm thấy
                 }
             } catch (NoSuchElementException e) {
-                System.out.println("Không tìm thấy phần tử. Thử lại lần " + (retryCount + 1));
+                LogUtils.error("Không tìm thấy phần tử. Thử lại lần " + (retryCount + 1));
+                ExtentTestManager.logMessage(Status.FAIL ,"Không tìm thấy phần tử. Thử lại lần " + (retryCount + 1));
+
+
                 retryCount++;
                 try {
                     Thread.sleep(waitTimeMillis); // Chờ trước khi thử lại
@@ -225,7 +260,9 @@ public class WebUI {
         }
 
         // Trả về false nếu không tìm thấy phần tử sau maxRetries lần
-        logConsole("Không tìm thấy phần tử sau " + maxRetries + " lần thử.");
+        LogUtils.error("Không tìm thấy phần tử sau " + maxRetries + " lần thử.");
+        ExtentTestManager.logMessage(Status.FAIL ,"Không tìm thấy phần tử sau " + maxRetries + " lần thử.");
+
         return false;
     }
 
@@ -235,6 +272,7 @@ public class WebUI {
             WebElement element = DriverManager.getDriver().findElement(by);
             return element.isDisplayed();
         } catch (Exception e) {
+            ExtentTestManager.logMessage(Status.FAIL ,"Phần tử không hiển thị");
             return false;
         }
     }
@@ -282,7 +320,7 @@ public class WebUI {
             action.moveToElement(getWebElement(by)).release(getWebElement(by)).build().perform();
             return true;
         } catch (Exception e) {
-            logConsole(e.getMessage());
+            LogUtils.error(e.getMessage());
             return false;
         }
     }
@@ -293,7 +331,7 @@ public class WebUI {
             action.moveByOffset(X, Y).build().perform();
             return true;
         } catch (Exception e) {
-            logConsole(e.getMessage());
+            LogUtils.error(e.getMessage());
             return false;
         }
     }
@@ -325,7 +363,7 @@ public class WebUI {
             //action.clickAndHold(getWebElement(fromElement)).moveToElement(getWebElement(toElement)).release(getWebElement(toElement)).build().perform();
             return true;
         } catch (Exception e) {
-            logConsole(e.getMessage());
+            LogUtils.error(e.getMessage());
             return false;
         }
     }
@@ -336,7 +374,7 @@ public class WebUI {
             action.clickAndHold(getWebElement(fromElement)).moveToElement(getWebElement(toElement)).release(getWebElement(toElement)).build().perform();
             return true;
         } catch (Exception e) {
-            logConsole(e.getMessage());
+            LogUtils.error(e.getMessage());
             return false;
         }
     }
@@ -348,7 +386,7 @@ public class WebUI {
             action.clickAndHold(getWebElement(fromElement)).pause(1).moveByOffset(X, Y).release().build().perform();
             return true;
         } catch (Exception e) {
-            logConsole(e.getMessage());
+            LogUtils.error(e.getMessage());
             return false;
         }
     }

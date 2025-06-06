@@ -26,7 +26,7 @@ public class DataProviderFactory {
     public Object[][] dataProviderLoginSuccess(){
 
         return new Object[][]{
-                {"admin@example.com", "123456"},
+                {"admin123@example.com", "123456"},
         };
     }
 
