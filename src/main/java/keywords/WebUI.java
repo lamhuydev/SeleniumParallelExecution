@@ -1,6 +1,7 @@
 package keywords;
 
 import com.aventstack.extentreports.Status;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import drivers.DriverManager;
+import reports.AllureManager;
 import reports.ExtentTestManager;
 import utils.LogUtils;
 
@@ -30,6 +32,7 @@ public class WebUI {
     }
 
 
+    @Step("Open URL: {0}")
     public static void openURL(String url) {
         DriverManager.getDriver().get(url);
         sleep(STEP_TIME);
@@ -43,6 +46,7 @@ public class WebUI {
     }
 
 
+    @Step("Set text [ {1} ] on element: {0}")
     public static void setText(By by, String value) {
         waitForElementVisible(by);
         sleep(STEP_TIME);
@@ -52,6 +56,7 @@ public class WebUI {
     }
 
 
+    @Step("Click on element {0}")
     public static void clickElement(By by) {
         waitForElementClickable(by);
         sleep(STEP_TIME);
@@ -60,6 +65,7 @@ public class WebUI {
         ExtentTestManager.logMessage(Status.PASS, "Click on element " + by);
     }
 
+    @Step("Click on element {0} with time out: {1}")
     public static void clickElement(By by, int timeout) {
         waitForElementClickable(by, timeout);
         sleep(STEP_TIME);
@@ -69,6 +75,7 @@ public class WebUI {
     }
 
 
+    @Step("Clear text on element {0}")
     public static void clearText(By by) {
         waitForElementVisible(by);
         sleep(STEP_TIME);
@@ -78,15 +85,19 @@ public class WebUI {
     }
 
 
+    @Step("Get text of element: {0}")
     public static String getText(By by) {
         waitForElementVisible(by);
         String text = getWebElement(by).getText();
         LogUtils.info("Get text of element: " + by + " || ==> Text Return: " + text);
         ExtentTestManager.logMessage(Status.PASS, "Get text of element: " + by + " || ==> Text Return: " + text);
+
+        AllureManager.saveTextLog("Get text of element: " + by + " || ==> Text Return: " + text);
         return text; //Trả về một giá trị kiểu String
     }
 
 
+    @Step("Get attribute of element {0}")
     public static String getElementAttribute(By by, String attributeName) {
         waitForElementVisible(by);
         LogUtils.info("Get attribute of element " + by);
@@ -95,6 +106,8 @@ public class WebUI {
         String value = getWebElement(by).getAttribute(attributeName);
         LogUtils.info("==> Attribute value: " + value);
         ExtentTestManager.logMessage(Status.PASS, "==> Attribute value: " + value);
+
+        AllureManager.saveTextLog("==> Attribute value: " + value);
 
         return value;
     }
@@ -142,6 +155,7 @@ public class WebUI {
     }
 
 
+    @Step("Wait for element clickable: {0}")
     public static void waitForElementClickable(By by) {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT), Duration.ofMillis(500));
@@ -150,10 +164,13 @@ public class WebUI {
             LogUtils.error("Timeout waiting for the element ready to click. " + by.toString());
             ExtentTestManager.logMessage(Status.FAIL, "Timeout waiting for the element ready to click. " + by.toString());
 
+            AllureManager.saveTextLog("Timeout waiting for the element ready to click. " + by.toString());
+
             Assert.fail("Timeout waiting for the element ready to click. " + by.toString());
         }
     }
 
+    @Step("Wait for element clickable {0} with time out: {1}")
     public static void waitForElementClickable(By by, int timeOut) {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
@@ -162,11 +179,13 @@ public class WebUI {
             LogUtils.error("Timeout waiting for the element ready to click. " + by.toString());
             ExtentTestManager.logMessage(Status.FAIL, "Timeout waiting for the element ready to click. " + by.toString());
 
+            AllureManager.saveTextLog("Timeout waiting for the element ready to click. " + by.toString());
+
             Assert.fail("Timeout waiting for the element ready to click. " + by.toString());
         }
     }
 
-
+    @Step("Wait for element visible {0}")
     public static void waitForElementVisible(By by) {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(TIMEOUT), Duration.ofMillis(500));
@@ -174,6 +193,8 @@ public class WebUI {
         } catch (Throwable error) {
             LogUtils.error("Timeout waiting for the element Visible. " + by.toString());
             ExtentTestManager.logMessage(Status.FAIL, "Timeout waiting for the element Visible. " + by.toString());
+
+            AllureManager.saveTextLog("Timeout waiting for the element Visible. " + by.toString());
 
             Assert.fail("Timeout waiting for the element Visible. " + by.toString());
         }

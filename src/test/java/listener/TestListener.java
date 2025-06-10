@@ -5,6 +5,7 @@ import helpers.CaptureHelper;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import reports.AllureManager;
 import reports.ExtentReportManager;
 import reports.ExtentTestManager;
 import utils.LogUtils;
@@ -63,6 +64,10 @@ public class TestListener implements ITestListener {
         ExtentTestManager.logMessage(Status.FAIL, result.getThrowable().toString());
         ExtentTestManager.addScreenshot(result.getName());
         ExtentTestManager.logMessage(Status.FAIL, "❌ Test case " + result.getName() + " is failed.");
+
+        //Allure Report
+        AllureManager.saveTextLog(result.getName() + "is failed");
+        AllureManager.saveScreenshotPNG();
 
         total_test_failed++;
 

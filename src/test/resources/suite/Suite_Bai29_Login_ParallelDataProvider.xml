@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Bai25 Test ParallelExecution" data-provider-thread-count="2">
+<suite name="Bai 34 Allure Report" data-provider-thread-count="1">
     <test name="Test ParallelExecution">
         <classes>
             <parameter name="browser" value="chrome"></parameter>
-            <class name="Bai29_DataProvider.testcases.LoginTest">
-                <methods>
-                    <include name="loginSuccess"></include>
-                </methods>
+            <class name="Bai34_AllureReport.testcases.LoginTest">
+<!--                <methods>-->
+<!--                    <include name="loginSuccess"></include>-->
+<!--                </methods>-->
             </class>
         </classes>
     </test>

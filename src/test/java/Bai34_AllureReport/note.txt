@@ -1,0 +1,71 @@
+Để sử dụng Allure Report: add thư viện ngoài và cài môi trường Allure
+
+Bước 1: Cài môi trường Allure
+    - vào đường link: https://github.com/allure-framework/allure2/releases
+    - Click vào 2.34.0 (có thể click vào phiên bản mới nhất)
+    - cuộn chuột xuống cuối sẽ thấy file allure-2.34.0.zip
+    - Ctrl X file vừa extract và đem qua ngoài ổ C
+    - nhấn tìm kiếm trên window và chọn: Edit the system environment variables
+    - Trên cửa sổ hiện lên chọn: Environment Variables
+    - Ở mục System variables: chọn new -> với variable name là ALLURE_HOME, variable value là đường dẫn thư mục allure extract ở ổ C rồi nhấn OK
+    - Kế đến vẫn ở mục System variables: trỏ đến biến path và nhấn edit -> tạo mới "%ALLURE_HOME%\bin"
+    - cuối cùng nhấn ok cho tất cả các cửa sổ
+Bước 2: add thư viện vào file pom.xml
+    ở bước 1 trong link:
+    https://anhtester.com/lesson/selenium-java-bai-34-cai-dat-va-su-dung-allure-report
+
+Bước 3: add đoạn build dùng để thực thi và config allure trong maven. Để ngoài Dependencies(file pom)
+    Ngay sau bước 1 trong link:
+    https://anhtester.com/lesson/selenium-java-bai-34-cai-dat-va-su-dung-allure-report
+
+Bước 4: Tạo class AllureManager để config allure reports.
+    Tạo class AllureManager để vào package reports chung với class ExtentReportManager buổi hôm trước.
+    Hoặc muốn để đâu cũng được. Gọn ràng là được.
+
+Bước 5: Thêm Allure Reports vào TestListener class
+    Chúng ta sẽ thêm 2 hàm từ AllureManager vào phương thức onTestFailue trong TestListener
+
+
+
+=============================================
+
+
+Sau khi chạy file pom xong, ta copy đoạn allure serve target/allure-results vào git bash để tạo server tạm xem report
+
+Có thể xuất ra file HTML:
+*** Lệnh này thì mặc định xuất ra folder allure-report:
+
+allure generate --single-file target/allure-results
+
+*** Lệnh này ghi đè lên folder allure-report đang tồn tại (thêm --clean):
+
+allure generate --single-file target/allure-results --clean
+
+*** Lệnh này xuất ra folder chỉ định cụ thể:
+Ví dụ folder allure-report-2
+
+allure generate --single-file target/allure-results -o allure-report-2
+
+Sau đó vào thư mục "allure-report" ngoài cùng sẽ thấy file index.html
+
+
+==============================================
+
+
+Dùng @Step trước các hàm trong WebUI để tạo ra từng step chi tiết cho Test case
+@Step("Open URL: {0}") =>> với {0} là tham số của hàm đó
+=>> {0}, {1},...đại diện cho giá trị của các tham số bên dưới phương thức. Theo thứ tự luôn nhé. Và bắt đầu từ 0 (tham số thứ nhất)
+
+
+==============================================
+
+Lần đầu tiên chạy code cần chạy trong maven (mvn test) để hiểu được cấu trúc build cho allure,
+nhưng các lần sau không cần chạy lệnh (mvn test) nữa, mà ta có thể chạy trực tiếp file suite thì nó vẫn hiểu đuược
+
+
+
+
+
+
+
+
